@@ -35,36 +35,47 @@ REGION = "eu-north-1"
 kinesis_client = boto3.client('kinesis', region_name=REGION)
 
 
-
+#run over 1000 Top Live Stream 
 while True:
     if page_index > 1001:
         page_index = 0
         time.sleep(5)
         #break
 
+	#staer a new cycle
     if page_index == 0:
         live_params = {}
         cursor = ''
 
     else:
+		#Get next 20
         live_params = {"fisrt": "20", "after": cursor}
 
+	#Get data from Twitch
     json_live = requests.request("GET", stream_url, headers=headers, params=live_params).json()
 
+	#get data from returning json
     cursor = json_live["pagination"]["cursor"]
+	
+	#Get the live stream
     live_data = [x for x in json_live["data"] if x["game_id"]]
+	
+	#Get the GameId
     new_game_ids = [x["game_id"] for x in live_data]
 
+	#Check If we already have information about the GameId
     Search_game = list(np.setdiff1d(new_game_ids, all_games_id))
     if Search_game:
         all_games_id.extend(Search_game)
         game_params = {"id": Search_game}
-
+		
+		#Get information about the new GameIds
         new_games = requests.request("GET", game_url, headers=headers, params=game_params).json()
         games.extend([x for x in new_games["data"]])
 
     now = datetime.now()
 
+	#go over all Live Stream and add information
     for l in live_data:
         game_found = next((g for g in games if g["id"] == l["game_id"]), None)
         if game_found:
@@ -75,6 +86,7 @@ while True:
         else:
             live_data.remove(l)
 
+	#Sand Json to AWS Kinesis
     for l in live_data:
         kinesis_client.put_record(
                         StreamName=STREAM_NAME,
