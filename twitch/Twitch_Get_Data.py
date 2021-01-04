@@ -7,7 +7,7 @@ import json
 from datetime import datetime
 
 # Get access_token
-# url = "https://id.twitch.tv/oauth2/token?grant_type=client_credentials&client_id=swc4ajh95a7uf00fxbXXXXXX&client_secret=dyt061nc0qaehvpowXXXXXXXX"
+# url = "https://id.twitch.tv/oauth2/token?grant_type=client_credentials&client_id=swc4ajhXXXXXXXXXXXX&client_secret=dyt061XXXXXXXXXXXXXX"
 # response = requests.request("POST", url)
 # data = response.json()
 # access_token = data['access_token']
@@ -22,11 +22,11 @@ stream_url = "https://api.twitch.tv/helix/streams"
 game_url = "https://api.twitch.tv/helix/games"
 live_url = 'https://www.twitch.tv/'
 
-access_token = "pfbjun9o8r4f7d1XXXXXXX"
+access_token = "pfbjun9XXXXXXXXXXXX"
 
 headers = {
     'Authorization': "Bearer " + access_token,
-    'Client-Id': "swc4ajh95a7uf00fxbaXXXXXX"
+    'Client-Id': "swc4ajh95XXXXXXXXXXXX"
 }
 
 STREAM_NAME = "twitch.stream"
