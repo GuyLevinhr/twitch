@@ -4,7 +4,7 @@ the project's target:
 
 Code:
 
-  Regularly switch to the currently leading 20,000 live streams - and get parameters like the user, the amount of live viewers and more.
+  Regularly switch to the currently leading 1,000 live streams - and get parameters like the user, the amount of live viewers and more.
   For each stream add information about the game name and more.
     Send the records to kinesis.
 
